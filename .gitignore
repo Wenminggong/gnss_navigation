@@ -1,0 +1,4 @@
+assignment_1/data/
+assignment_1/log/
+assignment_1/results/**/**/*.mat
+assignment_1/results/**/**/*.dat
