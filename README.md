@@ -1,4 +1,4 @@
-# PolyU AAE6012 Satellite Communication and Navigation 
+# PolyU AAE6102 Satellite Communication and Navigation 
 
 ## Assignment 1
 

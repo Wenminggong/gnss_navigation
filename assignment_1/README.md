@@ -1,4 +1,4 @@
-# PolyU AAE6012 Assignment 1 Report
+# PolyU AAE6102 Assignment 1 Report
 
 ## Task 1 - Acquisition
 
@@ -16,7 +16,7 @@ Signal acquisition aims to determine the visible satellites and estimate the coa
     ./acquisition_urban_2.sh 
     ./acquisition_opensky_2.sh 
     ```
-* Figure 1 and Figure 2 show the test statistics of all GPS satellites in the opensky environment and the urban environment, respectively. Obviously, the signal strength of the GPS PRN 4, 22, 26, 31 are relatively high in the opensky environment, while the signal strength of the GPS PRN 1 is extremely high in the urban environment.
+* Figure 1 and Figure 2 show the test statistics of all GPS satellites in the opensky environment and the urban environment, respectively. Obviously, the signal strengthes of the GPS PRN 4, 22, 26, 31 are relatively high in the opensky environment, while the signal strength of the GPS PRN 1 is extremely high in the urban environment.
     <center>
         <img style="border-radius: 0.3em;
         box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -76,7 +76,7 @@ Signal tracking aims to fine-tune the estimation of doppler frequency and code p
     gnss-sdr --config_file=./assignment_1_gnss_sdr_track_opensky.conf --log_dir=./log/tracking/opensky 
     gnss-sdr --config_file=./assignment_1_gnss_sdr_track_urban.conf --log_dir=./log/tracking/urban 
     ```
-* Figure 5 and Figure 6 show the tracking results of DLL in the opensky environment, Figure 7 and Figure 8 show the tracking results of DLL the urban environment. 
+* Figure 5 and Figure 6 show the tracking results of DLL in the opensky environment, Figure 7 and Figure 8 show the tracking results of DLL in the urban environment. 
     <center>
         <img style="border-radius: 0.3em;
         box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -131,7 +131,7 @@ Signal tracking makes sure the copied signal has the maximum correlation with th
     assignment_1_gnss_sdr_decode_opensky.conf
     assignment_1_gnss_sdr_decode_urban.conf
     ```
-* The extracted ephemeris data is shown in Figure 11 and Figure 12.
+* The extracted ephemeris data is shown in Figure 9 and Figure 10.
     <center>
         <img style="border-radius: 0.3em;
         box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -140,7 +140,7 @@ Signal tracking makes sure the copied signal has the maximum correlation with th
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 11. Ephemeris data in the opensky environment.</div>
+        padding: 2px;">Figure 9. Ephemeris data in the opensky environment.</div>
     </center>
     <center>
         <img style="border-radius: 0.3em;
@@ -150,7 +150,7 @@ Signal tracking makes sure the copied signal has the maximum correlation with th
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 12. Ephemeris data in the urban environment.</div>
+        padding: 2px;">Figure 10. Ephemeris data in the urban environment.</div>
     </center>
 
 ## Task 4 - Position and Velocity Estimation
@@ -164,7 +164,7 @@ The details of implementation and estimated results are listed as follows:
     assignment_1_gnss_sdr_els_urban.conf
     ```
     Specifically, [RTKLIB](https://www.rtklib.com/) positioning library is utilized to implement the Weighted Least Squares (WLS) algorithm in GNSS-SDR, we can set _PVT.positioning_mode=Single_ to call WLS for positioning. 
-* The estimated positions, velocities, and positioning 2-D distance errors are shown in Figure 13 and Figure 14. 
+* The estimated positions, velocities, and positioning 2-D distance errors are shown in Figure 11 and Figure 12. 
     <center>
         <img style="border-radius: 0.3em;
         box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -173,7 +173,7 @@ The details of implementation and estimated results are listed as follows:
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 13. Estimated positions, velocities, and positioning errors via WLS in the opensky environment.</div>
+        padding: 2px;">Figure 11. Estimated positions, velocities, and positioning errors via WLS in the opensky environment.</div>
     </center>
     <center>
         <img style="border-radius: 0.3em;
@@ -183,10 +183,10 @@ The details of implementation and estimated results are listed as follows:
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 14. Estimated positions, velocities, and positioning errors via WLS in the urban environment.</div>
+        padding: 2px;">Figure 12. Estimated positions, velocities, and positioning errors via WLS in the urban environment.</div>
     </center>
-* Comparing the positioning error shown in Figure 13 with that shown in Figure 14, we can find that the positioning error in the urban environment is significantly larger than that in the opensky environment, which discloses the challenges of accuracy positioning in urban environment with multipath effects and weak GPS signals. 
-* Besides, the estimated velocities via WLS are exremely unaccuracy in the urban environment with largest estimated velocity larger than 2000 m/s.
+* Comparing the positioning error shown in Figure 11 with that shown in Figure 12, we can find that the positioning error in the urban environment is significantly larger than that in the opensky environment, which discloses the challenges of accuracy positioning in urban environment with multipath effects and weak GPS signals. 
+* Besides, the estimated velocities via WLS are exremely unaccuracy in the urban environment with the largest estimated velocity larger than 2000 m/s.
 
 ## Task 5 - Kalman Filter-Based Positioning
 
@@ -199,7 +199,7 @@ The details of implementation and estimated results are listed as follows:
     assignment_1_gnss_sdr_ekf_urban.conf
     ```
     Specifically, [RTKLIB](https://www.rtklib.com/) positioning library is utilized to implement the Extended Kalman Filter (EKF) algorithm in GNSS-SDR, we can set _PVT.positioning_mode=PPP_Static_ to call EKF for positioning. 
-* The estimated positions, velocities, and positioning 2-D distance errors are shown in Figure 15 and Figure 16. Similar to the observations from Task 4, the positioning errors in the urban environment are larger than that in the opensky environment, although using EKF algorithm to estimate the positions.
+* The estimated positions, velocities, and positioning 2-D distance errors are shown in Figure 13 and Figure 14. Similar to the observations from Task 4, the positioning errors in the urban environment are larger than that in the opensky environment, although using EKF algorithm to estimate the positions.
     <center>
         <img style="border-radius: 0.3em;
         box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -208,7 +208,7 @@ The details of implementation and estimated results are listed as follows:
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 15. Estimated positions, velocities, and positioning errors via EKF in the opensky environment.</div>
+        padding: 2px;">Figure 13. Estimated positions, velocities, and positioning errors via EKF in the opensky environment.</div>
     </center>
     <center>
         <img style="border-radius: 0.3em;
@@ -218,9 +218,9 @@ The details of implementation and estimated results are listed as follows:
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 16. Estimated positions, velocities, and positioning errors via EKF in the urban environment.</div>
+        padding: 2px;">Figure 14. Estimated positions, velocities, and positioning errors via EKF in the urban environment.</div>
     </center>
-* Figure 17 and Figure 18 show the positioning results using WLS and EKF in the opensky and urban, respectively. In the ideal environment (i.e., opensky, shown in Figure 17), the precision of estimated positions from EKF is higher than that from WLS, while in the urban environment (see Figure 18), there are no significantly difference between this two algorithms.
+* Figure 15 and Figure 16 show the positioning results using WLS and EKF in the opensky and urban, respectively. In the ideal environment (i.e., opensky, shown in Figure 15), the precision of estimated positions from EKF is higher than that from WLS, while in the urban environment (see Figure 16), there are no significantly difference between these two algorithms.
     <center>
         <img style="border-radius: 0.3em;
         box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -229,7 +229,7 @@ The details of implementation and estimated results are listed as follows:
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 17. Estimated positions from WLS and EKF in the opensky environment.</div>
+        padding: 2px;">Figure 15. Estimated positions from WLS and EKF in the opensky environment.</div>
     </center>
     <center>
         <img style="border-radius: 0.3em;
@@ -239,5 +239,5 @@ The details of implementation and estimated results are listed as follows:
         <div style="color:orange; border-bottom: 1px solid #d9d9d9;
         display: inline-block;
         color: #999;
-        padding: 2px;">Figure 18. Estimated positions from WLS and EKF in the urban environment.</div>
+        padding: 2px;">Figure 16. Estimated positions from WLS and EKF in the urban environment.</div>
     </center>
