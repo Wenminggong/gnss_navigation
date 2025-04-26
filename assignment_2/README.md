@@ -2,8 +2,8 @@
 
 ## Task 1 - Differential GNSS Positioning
 
-<!-- <table><tr><td bgcolor=LightGrey> -->
-<div style="border:2px solid #ddd; padding:10px; border-radius:20px;">
+<table><tr><td bgcolor=LightGrey>
+<!-- <div style="border:2px solid #ddd; padding:10px; border-radius:20px;"> -->
 The integration of Global Navigation Satellite Systems (GNSS) into smartphones has revolutionized personal and commercial navigation. However, as user expectations for precision grow, developers face the challenge of balancing technological performance with practical constraints like cost, power efficiency, and scalability. This essay compares four advanced GNSS algorithms (DGNSS, RTK, PPP, and PPP-RTK) across technological, economic, and operational dimensions to assess their suitability for smartphone navigation.
 
 * **Technological Performance: Accuracy vs. Practicality**:
@@ -19,8 +19,8 @@ Smartphones demand energy-efficient solutions. RTK’s continuous data processin
 Market adoption hinges on maturity and scalability. DGNSS is widely deployed but lags in accuracy, limiting its appeal for next-gen applications. RTK thrives in niche markets (e.g., surveying) but faces scalability challenges in consumer electronics due to high costs. PPP gains traction in high-end devices, aided by improving cloud-correction services that reduce initialization times. PPP-RTK, though promising, remains experimental, requiring industry collaboration to standardize correction formats and optimize algorithms. For smartphones, PPP’s incremental advancements offer a pragmatic path, while PPP-RTK represents a future-ready solution pending technological maturation.
 
 No single algorithm perfectly satisfies all smartphone constraints, but a tiered approach could optimize user experience. For mainstream applications, PPP’s global coverage and moderate accuracy, coupled with cloud-assisted initialization, present a viable upgrade from DGNSS. Premium devices might adopt PPP-RTK as processing power improves, offering high accuracy without prohibitive infrastructure. Meanwhile, RTK remains confined to specialized use cases due to cost and power barriers. Manufacturers must prioritize energy efficiency, cost scalability, and user-centric design, ensuring that technological advancements align with practical realities. As GNSS evolves, the synergy between algorithmic innovation and hardware optimization will define the next era of smartphone navigation—where precision meets practicality.
-<!-- </td></tr></table> -->
-</div>
+</td></tr></table>
+<!-- </div> -->
 
 ```
 * GenAI model: DeepSeek R1.
