@@ -1,8 +1,8 @@
 # PolyU AAE6102 Assignment 2 Report
 
 ## Task 1 - Differential GNSS Positioning
-
-<table><tr><td bgcolor=LightGrey>
+The pros and cons of the four GNSS techniques for smartphone navigation are presented as follows:
+<table><tr><td bgcolor=Black>
 <!-- <div style="border:2px solid #ddd; padding:10px; border-radius:20px;"> -->
 The integration of Global Navigation Satellite Systems (GNSS) into smartphones has revolutionized personal and commercial navigation. However, as user expectations for precision grow, developers face the challenge of balancing technological performance with practical constraints like cost, power efficiency, and scalability. This essay compares four advanced GNSS algorithms (DGNSS, RTK, PPP, and PPP-RTK) across technological, economic, and operational dimensions to assess their suitability for smartphone navigation.
 
@@ -58,6 +58,44 @@ When evaluating these GNSS algorithms for smartphone navigation applications, we
 
 
 ## Task 4 – LEO Satellites for Navigation
+The difficulties and challenges of using LEO communication satellites for GNSS navigation are discussed as below:
+<table><tr><td bgcolor=Black>
+The integration of Low Earth Orbit (LEO) satellites into Global Navigation Satellite Systems (GNSS) promises to address longstanding limitations of traditional medium-to-high Earth orbit constellations, such as weak signal strength and susceptibility to interference. However, leveraging LEO communication satellites for navigation (mainly through dedicated constellations, hybrid payloads, real-time orbit updates, or opportunistic signal use) introduces multifaceted technical and operational challenges. These hurdles must be carefully navigated to realize LEO’s potential as a GNSS enhancer.
 
+* **Dedicated LEO Navigation Constellations: Scalability and Sustainability:**
+Developing LEO-based navigation constellations presents significant technical barriers. Unlike traditional GNSS satellites, which provide wide coverage from high altitudes, LEO satellites operate closer to Earth (500–1,500 km), necessitating a larger constellation to ensure global coverage. For instance, while GPS requires 24 satellites, a LEO system might demand hundreds to maintain continuous visibility, dramatically increasing deployment and maintenance costs. Additionally, LEO satellites experience rapid orbital decay due to atmospheric drag, shortening their operational lifespan and requiring frequent replacements. This raises sustainability concerns, as frequent launches exacerbate space debris proliferation, demanding rigorous collision-avoidance systems. Operationally, coordinating a dedicated LEO constellation with existing GNSS infrastructure poses challenges. Spectrum allocation conflicts could arise, as LEO signals might interfere with legacy GNSS or communication bands. Regulatory frameworks, which vary globally, would need harmonization to avoid geopolitical disputes over orbital slots and frequency rights. Furthermore, the fast-moving nature of LEO satellites complicates ground station operations, necessitating dynamic tracking and handover mechanisms to maintain seamless user connectivity.
+
+* **Integration of Navigation Payloads into LEO Communication Satellites: Design Compromises:**
+Adding navigation capabilities to existing LEO communication satellites, such as Starlink or OneWeb, introduces technical trade-offs. Communication satellites prioritize high-throughput data transmission, leaving limited power, weight, and space for navigation payloads. Designing dual-purpose signals that serve both communication and positioning requires precise synchronization and signal integrity, as even minor phase errors could degrade navigation accuracy. Moreover, the signals must resist interference between communication and navigation functions, complicating waveform design. From an operational standpoint, satellite operators may prioritize their primary mission (e.g., broadband internet) over navigation performance. Navigation payloads could divert resources from core services, creating economic disincentives for operators. Additionally, the lack of standardization across LEO constellations complicates interoperability. For example, signals from different providers might use incompatible modulation schemes, forcing receivers to support multiple protocols and increasing complexity for end-users.
+
+* **Real-Time Orbit Tracking and Updates: Infrastructure Demands:**
+Using LEO satellites to enhance traditional GNSS through real-time orbit corrections requires ultra-precise tracking of both LEO and GNSS satellites. Technically, the rapid orbital motion of LEO satellites demands frequent positional updates, necessitating a dense global network of ground stations or inter-satellite laser links to ensure continuous monitoring. Processing this data in real time to generate GNSS corrections imposes immense computational burdens, requiring advanced algorithms and edge-computing infrastructure. Operationally, establishing such a system hinges on collaboration between GNSS operators and LEO satellite providers. Existing GNSS ground networks, optimized for high-altitude satellites, may lack the agility to track LEO trajectories. Furthermore, data-sharing agreements and cybersecurity protocols must be established to protect against vulnerabilities in real-time data streams. Without international cooperation, fragmentation in correction services could undermine the universality of GNSS enhancements.
+
+* **Opportunistic Positioning: Signal Limitations and Legal Barriers:**
+Extracting navigation observables from existing LEO communication signals (e.g., Doppler shifts from Starlink) faces inherent technical limitations. Communication signals lack the precise timing and structure required for navigation, making pseudorange measurements error-prone. While machine learning techniques could reverse-engineer positioning data from signal characteristics, this approach remains experimental and computationally intensive. Additionally, the dynamic LEO environment causes rapid signal availability changes, leading to positioning gaps in urban canyons or polar regions. Operationally, opportunistic use of LEO signals raises legal and ethical questions. Communication satellites transmit proprietary signals, and repurposing them for navigation without operator consent could violate intellectual property or licensing agreements. Regulatory bodies like the International Telecommunication Union (ITU) have not yet defined standards for dual-use signals, creating uncertainty. Moreover, reliance on third-party satellites introduces risks: operators could alter signal structures or prioritization, destabilizing navigation services.
+
+* **Broader Challenges: Cybersecurity and Regulatory Uncertainty:**
+Beyond method-specific issues, systemic challenges persist. The stronger LEO signals, while resistant to jamming, could become attractive targets for spoofing attacks, where malicious actors broadcast false signals to mislead receivers. Securing LEO-augmented GNSS demands robust encryption and authentication protocols, which are not universally implemented. Additionally, the regulatory landscape for LEO remains fragmented. Questions about liability for navigation failures, orbital debris mitigation, and spectrum rights remain unresolved, deterring investment.
+
+While LEO satellites offer transformative potential for GNSS, their integration is far from straightforward. Each enhancement approach faces unique technical and operational hurdles. These range from hardware limitations and orbital dynamics to regulatory gaps and economic viability. Success will depend on interdisciplinary collaboration among engineers, policymakers, and industry stakeholders to standardize protocols, secure funding, and prioritize sustainability. Only then can LEO satellites evolve from a promising concept into a reliable pillar of global navigation.
+</td></tr></table>
+
+```
+* GenAI model: DeepSeek R1.
+* Prompt: "Traditional GNSS constellations operate in middle to high Earth orbits. This characteristic introduces several challenges for positioning and navigation, such as:
+1. Satellite visibility: In urban areas or at high latitudes, receivers may experience inaccurate positioning or lose satellite lock.
+2. Interference susceptibility: Long signal propagation paths increase vulnerability to disruptions from space weather, radiation belts, and atmospheric conditions.
+3. Jamming susceptibility: GNSS signals weaken significantly by the time they reach receivers, making them relatively easy to jam.
+4. Precise positioning: Orbital perturbations, space weather, and other factors introduce uncertainty in a satellite’s true position, degrading receiver accuracy.
+
+In contrast, Low Earth Orbit (LEO) satellites are much closer to Earth than traditional GNSS satellites. Consequently, their signals experience less interference and attenuation, resulting in stronger and cleaner reception. This advantage positions LEO satellites as a potential enhancer of traditional GNSS performance. Generally, LEO can improve GNSS in several ways:
+1. Developing dedicated LEO navigation constellations;
+2. Integrating positioning payloads into existing LEO communication constellations;
+3. Enhancing traditional GNSS by using LEO satellites for real-time orbit tracking and updates;
+4. Leveraging opportunistic positioning by extracting navigation observables (e.g., Doppler shift, pseudorange, and carrier phase) from current LEO signals.
+
+However, using LEO satellites for GNSS navigation also presents significant challenges. Write a short essay (about 700 words) to discuss the difficulties and challenges of using LEO communication satellites for GNSS navigation. As outlined above, LEO satellites can enhance GNSS in multiple ways, but each approach may face distinct challenges. Notably, these challenges can be examined from both technical and operational perspectives. Now help me generate the essay:"
+* Comments: DeepSeek R1 has strong reasoning capability and is free. It is better to provide detailed backgrounds and instructions.
+```
 
 ## Task 5 – GNSS Remote Sensing
