@@ -77,7 +77,7 @@ When evaluating these GNSS algorithms for smartphone navigation applications, we
 
 * **Positioning Performance Improvement**
 
-    * Method Selection
+    * **Method Selection**
         
         The most straightforward method to improve positioning in urban canyons is excluding the non-line-of-sight satellites. However, as shown in Figure 1, there are only two line-of-sight satellites, which is fewer than the minimum required for positioning. Therefore, we cannot directly exclude the non-line-of-sight satellites.
 
@@ -87,7 +87,7 @@ When evaluating these GNSS algorithms for smartphone navigation applications, we
 
         Given the above-mentioned limitations, we attempt to improve positioning performance by adjusting the parameters of the positioning algorithm provided in [GNSS-SDR](https://gnss-sdr.org/).
 
-    * Processing Details
+    * **Processing Details**
 
         Ionospheric and tropospheric delays introduce extra measurement errors in the signal travel time from satellites to receivers. Therefore, using appropriate ionospheric and tropospheric models can effectively correct positioning errors. In Assignment 1, we used the _Broadcast_ model for ionospheric correction and the _Saastamoinen_ model for tropospheric correction (as specified in the PVT Config section of _assignment_1_gnss_sdr_wls_urban.conf_). However, we identified a more precise tropospheric model: _Estimate_ZTD_Grad_. Consequently, we adopted _Estimate_ZTD_Grad_ model to enhance positioning performance.
 
@@ -106,7 +106,7 @@ When evaluating these GNSS algorithms for smartphone navigation applications, we
         <center>
             <img style="border-radius: 0.3em;
             box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-            src="/home/wenminggong/projects/subjects/gnss/gnss_navigation/assignment_1/results/wls/urban/urban_results.png">
+            src="results/task_2/urban_results_previous.png">
             <br>
             <div style="color:orange; border-bottom: 1px solid #d9d9d9;
             display: inline-block;
@@ -135,7 +135,7 @@ When evaluating these GNSS algorithms for smartphone navigation applications, we
         </center>
 
 
-    * References
+    * **References**
         
         [1] A Computation Effective Range-based 3D Mapping Aided GNSS with NLOS Correction Method , Hoi-Fung Ng et al., The Journal of Navigation, 2020.
 
@@ -152,13 +152,13 @@ The details of implementation and estimated results are listed as follows:
     ```text
     assignment_2_gnss_sdr_pvt_opensky.conf
     ```
-    Specifically, the item _PVT.enable_pvt_kf_ was set as _true_ to enable the RAIL feature.
+    Specifically, the item _PVT.enable_pvt_kf_ was set as _true_ to enable the RAIM feature.
 
 * The estimated positions, velocities, and positioning 2-D distance errors from the method without RAIM and the method with RAIM are shown in Figure 5 and Figure 6.
         <center>
             <img style="border-radius: 0.3em;
             box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-            src="/home/wenminggong/projects/subjects/gnss/gnss_navigation/assignment_1/results/wls/opensky/opensky_results.png">
+            src="results/task_3/opensky_results_previous.png">
             <br>
             <div style="color:orange; border-bottom: 1px solid #d9d9d9;
             display: inline-block;
