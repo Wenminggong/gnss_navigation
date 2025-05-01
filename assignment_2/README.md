@@ -52,10 +52,141 @@ When evaluating these GNSS algorithms for smartphone navigation applications, we
 
 
 ## Task 2 – GNSS in Urban Areas
+* **Satellite Visibility Analysis**
+
+    To determine the visibility of GPS satellites in the given urban environment, we use [GNSS-SDR](https://gnss-sdr.org/) to process the raw IF data and generate observation and navigation data. The configuration file used is provided in:
+    ```text
+    assignment_2_gnss_sdr_obs_urban_gps.conf
+    ```
+    The generated observation and navigation data are stored in:
+    ```text
+    results/task_2/GSDR120q42.25O
+    results/task_2/GSDR120q42.25N
+    ```
+    Next, we use RTKPlot to visualize the skyplot and skymask. Notably, we set the provided ground truth position (22.3198722, 114.209101777778, 3.0) as the receiver’s location to generate the skyplot. The resulting skyplot is shown in Figure 1. As observed, 6 satellites (G01, G03, G07, G11, G18, G22) are visible, but 4 of them are obstructed by surrounding buildings, presenting a significant challenge for high-precision positioning.
+    <center>
+        <img style="border-radius: 0.3em;
+        box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+        src="results/task_2/satellite_skymask.jpg">
+        <br>
+        <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+        display: inline-block;
+        color: #999;
+        padding: 2px;">Figure 1. The skyplot in the urban situation.</div>
+    </center>
+
+* **Positioning Performance Improvement**
+
+    * Method Selection
+        
+        The most straightforward method to improve positioning in urban canyons is excluding the non-line-of-sight satellites. However, as shown in Figure 1, there are only two line-of-sight satellites, which is fewer than the minimum required for positioning. Therefore, we cannot directly exclude the non-line-of-sight satellites.
+
+        Shadow matching is an effective method to improve positioning in urban canyons [2]. Its core idea is that satellites visible from different locations are predicted and compared with the measured satellite visibility to determine position. However, in this task, we only have the measured skymask information and cannot generate skymasks for other positions, so this method is not suitable for this task.
+
+        Considering the recent 3D mapping-aided methods, like this proposed in [1], these methods typically require not only the skymask but also additional 3D information such as surrounding building heights. Since we only have the skymask, these methods cannot be used here.
+
+        Given the above-mentioned limitations, we attempt to improve positioning performance by adjusting the parameters of the positioning algorithm provided in [GNSS-SDR](https://gnss-sdr.org/).
+
+    * Processing Details
+
+        Ionospheric and tropospheric delays introduce extra measurement errors in the signal travel time from satellites to receivers. Therefore, using appropriate ionospheric and tropospheric models can effectively correct positioning errors. In Assignment 1, we used the _Broadcast_ model for ionospheric correction and the _Saastamoinen_ model for tropospheric correction (as specified in the PVT Config section of _assignment_1_gnss_sdr_wls_urban.conf_). However, we identified a more precise tropospheric model: _Estimate_ZTD_Grad_. Consequently, we adopted _Estimate_ZTD_Grad_ model to enhance positioning performance.
+
+        Additionally, [GNSS-SDR](https://gnss-sdr.org/) provides a Kalman filter-based denoising algorithm for processing measurements and estimations, which was not utilized in Assignment 1. We utilized this algorithm to further improve positioning accuracy.
+
+        In summary, we modified two key settings to enhance positioning performance. The updated configuration file is available at:
+        ```text
+        assignment_2_gnss_sdr_pvt_urban_gps.conf
+        ```
+        The modified settings are:
+        ```text
+        PVT.trop_model=Estimate_ZTD_Grad
+        PVT.enable_pvt_kf=true
+        ```
+        The estimated positions, velocities, and positioning 2-D distance errors using previous settings and improved settings are shown in Figure 2 and Figure 3, respectively. Figure 4 compares the position estimates using the original and improved settings (blue points vs. orange points). As shown, the refined settings provide modest but noticeable improvements in positioning accuracy and precision for urban environments.
+        <center>
+            <img style="border-radius: 0.3em;
+            box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+            src="/home/wenminggong/projects/subjects/gnss/gnss_navigation/assignment_1/results/wls/urban/urban_results.png">
+            <br>
+            <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+            display: inline-block;
+            color: #999;
+            padding: 2px;">Figure 2. Estimated positions, velocities, and positioning errors in the urban environment presented in Assignment 1.</div>
+        </center>
+        <center>
+            <img style="border-radius: 0.3em;
+            box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+            src="results/task_2/urban_results.png">
+            <br>
+            <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+            display: inline-block;
+            color: #999;
+            padding: 2px;">Figure 3. Estimated positions, velocities, and positioning errors in the urban environment using improved settigns.</div>
+        </center>
+        <center>
+            <img style="border-radius: 0.3em;
+            box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+            src="results/task_2/com_urban_results.png">
+            <br>
+            <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+            display: inline-block;
+            color: #999;
+            padding: 2px;">Figure 4. Estimated positions from previous settings and improved settings in the urban environment.</div>
+        </center>
+
+
+    * References
+        
+        [1] A Computation Effective Range-based 3D Mapping Aided GNSS with NLOS Correction Method , Hoi-Fung Ng et al., The Journal of Navigation, 2020.
+
+        [2] GNSS Shadow Matching: Improving Urban Positioning Accuracy Using a 3D City Model with Optimized Visibility Scoring Scheme, Lei Wang et al., NAVIGATION: Journal of the Institute of Navigation, 2013.
 
 
 ## Task 3 – GPS RAIM (Receiver Autonomous Integrity Monitoring)
 
+The details of implementation and estimated results are listed as follows:
+
+* A RAIM FDE feature is provided in the PVT Configuration part of [GNSS-SDR](https://gnss-sdr.org/), we activated this feature to enable RAIM function.
+
+* The configuration file used is available at:
+    ```text
+    assignment_2_gnss_sdr_pvt_opensky.conf
+    ```
+    Specifically, the item _PVT.enable_pvt_kf_ was set as _true_ to enable the RAIL feature.
+
+* The estimated positions, velocities, and positioning 2-D distance errors from the method without RAIM and the method with RAIM are shown in Figure 5 and Figure 6.
+        <center>
+            <img style="border-radius: 0.3em;
+            box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+            src="/home/wenminggong/projects/subjects/gnss/gnss_navigation/assignment_1/results/wls/opensky/opensky_results.png">
+            <br>
+            <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+            display: inline-block;
+            color: #999;
+            padding: 2px;">Figure 5. Estimated positions, velocities, and positioning errors in the opensky environment without RAIM.</div>
+        </center>
+        <center>
+            <img style="border-radius: 0.3em;
+            box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+            src="results/task_3/opensky_results.png">
+            <br>
+            <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+            display: inline-block;
+            color: #999;
+            padding: 2px;">Figure 6. Estimated positions, velocities, and positioning errors in the opensky environment with RAIM.</div>
+        </center>
+
+* Figure 7 compares the position estimates without RAIM and with RAIM (blue points vs. orange points). As shown, the RAIM mechanism excluded some faulty measurements, resulting in fewer estimated points. When comparing the positioning results in Figure 5 with those in Figure 6, RAIM slightly reduces the estimated velocity error.
+    <center>
+        <img style="border-radius: 0.3em;
+        box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+        src="results/task_3/com_opensky_results.png">
+        <br>
+        <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+        display: inline-block;
+        color: #999;
+        padding: 2px;">Figure 7. Estimated positions without RAIM and with RAIM in the opensky environment.</div>
+    </center>
 
 ## Task 4 – LEO Satellites for Navigation
 The difficulties and challenges of using LEO communication satellites for GNSS navigation are discussed as below:

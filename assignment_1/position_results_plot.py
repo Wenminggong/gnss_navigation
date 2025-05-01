@@ -27,6 +27,8 @@ def plot_position_results(result_path:str, data_type:str):
         vel_y = np.array(f["vel_y"])
         vel_z = np.array(f["vel_z"])
 
+    # print("estimated sample no.100: lat {}, long {}".format(latitude[99], longitude[99]))
+
     # 数据采样间隔
     sampling_step = 10
     n = latitude.shape[0]

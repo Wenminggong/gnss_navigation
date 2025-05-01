@@ -2,3 +2,8 @@ assignment_1/data/
 assignment_1/log/
 assignment_1/results/**/**/*.mat
 assignment_1/results/**/**/*.dat
+
+assignment_2/data/
+assignment_2/log/
+assignment_2/results/**/*.mat
+assignment_2/results/**/*.dat
